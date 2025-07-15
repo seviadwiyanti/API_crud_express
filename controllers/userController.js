@@ -17,5 +17,32 @@ async function getAllUsers(req, res) {
 }
 
 
+async function deleteuser(req, res) {
+  try {
+    const id = req.params.id;
 
-module.exports = { getAllUsers };
+    const findUser = await User.findByPk(id);
+    if (!findUser) {
+      return api.apiError(res, null, 'User Not Found', 404);
+    }
+
+    await User.destroy({ where: { id: id } });
+
+    
+    return api.apiOk(res, null, 'User Deleted Successfully');
+
+  } catch (error) {
+    console.log('Error in deleteUser:', error);
+    return api.apiError(res, error, 'Internal Server Error', 500);
+  }
+}
+
+
+
+
+
+
+module.exports = { 
+    getAllUsers,
+    deleteuser 
+};
