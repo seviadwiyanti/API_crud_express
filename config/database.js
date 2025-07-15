@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 // Ubah sesuai dengan konfigurasi MySQL kamu
-const sequelize = new Sequelize('nama_database', 'username_mysql', 'password_mysql', {
+const sequelize = new Sequelize('express-api', 'root', 'qwerty', {
   host: 'localhost',
   dialect: 'mysql',
   logging: false
