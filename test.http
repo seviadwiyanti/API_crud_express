@@ -1,2 +1,11 @@
-### Get all
-GET http://localhost:3001/users/
+# ### Get all
+
+# GET http://localhost:3001/users/
+PUT http://localhost:3001/users/1
+Content-Type: application/json
+
+{
+  "username": "Seaa",
+  "email": "andika@mail.com"
+}
+

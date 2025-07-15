@@ -37,6 +37,40 @@ async function deleteuser(req, res) {
   }
 }
 
+async function addUser(req, res) {
+    const data = req.body
+    try {
+        const insertData = await User.create(data)
+        return api.apiOk(res, insertData, 'Success Insert Data')
+    } catch (error) {
+        console.log('Error in addDecasingHeader:', error);
+        return api.apiError(res, error, 'Internal Server Error', 500)
+    }
+}
+
+async function updateuser(req, res) {
+  const data = req.body;
+  const { id } = req.params;
+
+  try {
+    const [rowsUpdated] = await User.update(data, {
+      where: { id: id }
+    });
+
+    if (rowsUpdated === 0) {
+      return api.apiError(res, null, 'User Not Found', 404);
+    }
+
+    // Ambil data terbaru biar gak cuma "1"
+    const updatedUser = await User.findByPk(id);
+
+    return api.apiOk(res, updatedUser, 'Success Update Data');
+  } catch (error) {
+    console.log('Error in updateUser:', error);
+    return api.apiError(res, error, 'Internal Server Error', 500);
+  }
+}
+
 
 
 
@@ -44,5 +78,7 @@ async function deleteuser(req, res) {
 
 module.exports = { 
     getAllUsers,
-    deleteuser 
+    deleteuser ,
+    addUser,
+    updateuser
 };
