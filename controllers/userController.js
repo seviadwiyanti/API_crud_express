@@ -71,6 +71,24 @@ async function updateuser(req, res) {
   }
 }
 
+async function getuserById(req, res) {
+  const { id } = req.params;
+  try {
+    const data = await User.findOne({
+      where: { id }
+    });
+
+    if (data) {
+      return api.apiOk(res, data); 
+    } else {
+      return api.apiError(res, data, 'Record Not Found', 200);
+    }
+  } catch (error) {
+    console.log('Error in getuserById:', error);
+    return api.apiError(res, error, 'Internal Server Error', 500);
+  }
+}
+
 
 
 
@@ -80,5 +98,6 @@ module.exports = {
     getAllUsers,
     deleteuser ,
     addUser,
-    updateuser
+    updateuser,
+    getuserById
 };

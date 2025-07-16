@@ -1,0 +1,42 @@
+const customers = require('../models/Customer');
+var api = require("../tools/common");
+
+async function getAllCustomer(req, res) {
+  try {
+    const resData = await customers.findAll();
+
+    if (resData.length > 0) {
+      return api.apiOk(res, resData);
+    } else {
+      return api.apiError(res, resData, 'Record Not Found', 200);
+    }
+  } catch (error) {
+    console.log('Error in getAllUsers:', error);
+    return api.apiError(res, error, 'Internal Server Error', 500);
+  }
+}
+
+
+async function getcustomerById(req, res) {
+  const { id } = req.params;
+  try {
+    const data = await customers.findOne({
+      where: { id }
+    });
+
+    if (data) {
+      return api.apiOk(res, data); 
+    } else {
+      return api.apiError(res, data, 'Record Not Found', 200);
+    }
+  } catch (error) {
+    console.log('Error in getcustomerById:', error);
+    return api.apiError(res, error, 'Internal Server Error', 500);
+  }
+}
+
+
+module.exports = { 
+    getAllCustomer,
+    getcustomerById
+};

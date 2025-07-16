@@ -6,23 +6,25 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var customerRouter = require('./routes/customer'); // Import customer routes
 
 var sequelize = require('./config/database');
 var User = require('./models/User'); // register model
+var Customer = require('./models/Customer'); // register model
 
 var app = express();
 
 // Tes koneksi + bikin tabel
 sequelize.authenticate()
   .then(() => {
-    console.log('✅ Connected to DB.');
-    return sequelize.sync();
+    console.log('Connected to DB.');
+    return sequelize.sync({ alter: true });
   })
   .then(() => {
-    console.log('✅ Tables synced.');
+    console.log('Tables synced.');
   })
   .catch(err => {
-    console.error('❌ DB connection error:', err);
+    console.error('DB connection error:', err);
   });
 
 // view engine setup
@@ -37,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/customers', customerRouter); // Add customer routes
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
