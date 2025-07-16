@@ -8,6 +8,7 @@ const Customer = sequelize.define(
     email: DataTypes.STRING,
     belanja: DataTypes.INTEGER,
     alamat: DataTypes.STRING,
+    jualan: DataTypes.STRING,
   },
   {
     tableName: "customers",

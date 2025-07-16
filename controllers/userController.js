@@ -16,7 +16,6 @@ async function getAllUsers(req, res) {
   }
 }
 
-
 async function deleteuser(req, res) {
   try {
     const id = req.params.id;
@@ -88,10 +87,6 @@ async function getuserById(req, res) {
     return api.apiError(res, error, 'Internal Server Error', 500);
   }
 }
-
-
-
-
 
 
 module.exports = { 

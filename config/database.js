@@ -6,5 +6,4 @@ const sequelize = new Sequelize('express-api', 'root', 'qwerty', {
   dialect: 'mysql',
   logging: false
 });
-
 module.exports = sequelize;

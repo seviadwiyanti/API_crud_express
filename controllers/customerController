@@ -35,8 +35,20 @@ async function getcustomerById(req, res) {
   }
 }
 
+async function addCustomer(req, res) {
+    const data = req.body
+    try {
+        const insertData = await customers.create(data)
+        return api.apiOk(res, insertData, 'Success Insert Data')
+    } catch (error) {
+        console.log('Error in addCustomer:', error);
+        return api.apiError(res, error, 'Internal Server Error', 500)
+    }
+}
+
 
 module.exports = { 
     getAllCustomer,
-    getcustomerById
+    getcustomerById,
+    addCustomer
 };

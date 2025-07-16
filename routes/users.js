@@ -9,5 +9,4 @@ router.put('/:id', userController.updateuser);
 router.get('/:id', userController.getuserById);
 
 
-
 module.exports = router;
